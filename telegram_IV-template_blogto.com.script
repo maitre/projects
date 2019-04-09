@@ -1,0 +1,41 @@
+### BlogTO.com InstantView template
+### Based on the Telegram medium.com templates: https://instantview.telegram.org/samples/medium.com/
+### Author:   JohnQ
+### Updated: 2018.03.18
+###
+# Options - JSON version:
+~version: "2.0"
+
+# STEP 1: get only article pages
+?exists: /html/body/div[@class="base-site-content"]/section[@class="article-detail-lead-section"]
+
+# STEP 2: define required elements
+### Required: body, title. Optional: subtitle, cover
+### Each are HTML elements containing the content
+
+body: //div[@class="article-detail-content-wrapper rich-content-wrapper"]
+title: //p/span[@class="article-lead-title-text"]
+
+author: //div[@class="rich-content-author"]
+published_date: //div[@class="rich-content-post-date"]
+
+cover: //picture[@class="article-lead-picture"]/img
+
+# STEP 3: refinements
+### Use various modifier functions to enhance standard content from the site
+### See https://instantview.telegram.org/docs for details
+# 
+# Currently not working
+<figure>: $body//p[.//img]
+<figcaption>: //p[has-class("caption")]
+#
+
+# STEP 4: cleanup
+### @remove function to prune undesired content
+# iframes are problematic, disable if needed
+# @remove: //iframe
+# some issue with inline images, removing for now:
+# @remove: $body/div/p/img
+
+# End
+
